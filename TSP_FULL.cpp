@@ -17,8 +17,14 @@ int main()
 	(*intMap)[2][0] = 5;
 	std::cout << (*intMap)[2][0] << std::endl;
 
-	(*doubleMap)[5][0] = 5;
-	std::cout << (*doubleMap)[5][0] << std::endl;
+	(*doubleMap)[5][0] = 5.25;
+	std::cout << (*doubleMap)[5][0] << std::endl << std::endl;
+	
+	intMap->loadXml("burma14.xml");
+	std::cout << (*intMap) << std::endl;
+
+	doubleMap->loadXml("burma14.xml");
+	std::cout << (*doubleMap) << std::endl;
 
 	getchar();
     return 0;
