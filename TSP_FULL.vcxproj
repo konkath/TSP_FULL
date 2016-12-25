@@ -145,6 +145,7 @@
     <ClInclude Include="Map.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
+    <ClInclude Include="Utils\RandomGenerator.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Map.cpp" />
@@ -155,6 +156,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="TSP_FULL.cpp" />
+    <ClCompile Include="Utils\RandomGenerator.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="README.md" />

@@ -26,6 +26,18 @@ int main()
 	doubleMap->loadXml("burma14.xml");
 	std::cout << (*doubleMap) << std::endl;
 
+	intMap->generateMap(Asymetric, 10);
+	std::cout << (*intMap) << std::endl;
+
+	intMap->generateMap(Symetric, 10);
+	std::cout << (*intMap) << std::endl;
+	
+	doubleMap->generateMap(Asymetric, 10);
+	std::cout << (*doubleMap) << std::endl;
+
+	doubleMap->generateMap(Symetric, 10);
+	std::cout << (*doubleMap) << std::endl;
+
 	getchar();
     return 0;
 }
