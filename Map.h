@@ -16,7 +16,8 @@ template<typename T>
 class Map
 {
 public:
-	Map<T>(unsigned size);
+	Map<T>();
+	Map<T>(MapTypes type, const unsigned size);
 	
 	void generateMap(const MapTypes mapType, const unsigned size);
 	bool loadXml(const std::string fileName);

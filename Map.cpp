@@ -5,9 +5,15 @@
 #include "Utils\RandomGenerator.h"
 
 template<typename T>
-Map<T>::Map(unsigned size)
+Map<T>::Map()
 {
-	map = std::vector<std::vector<T>>(size, std::vector<T>(size, 10));
+
+}
+
+template<typename T>
+Map<T>::Map(const MapTypes type, const unsigned size)
+{
+	generateMap(type, size);
 }
 
 template<typename T>
@@ -84,7 +90,7 @@ bool Map<T>::loadXml(const std::string fileName)
 		for (auto leaf = node->first_node(); leaf; leaf = leaf->next_sibling())
 		{
 			map[map.size() - 1][std::stoi(leaf->value())] 
-				= (T)std::stod(leaf->first_attribute()->value());
+				= static_cast<T>(std::stod(leaf->first_attribute()->value()));
 		}
 	}
 

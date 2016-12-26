@@ -9,8 +9,8 @@
 
 int main()
 {
-	std::unique_ptr<Map<int>> intMap = std::make_unique<Map<int>>(10);
-	std::unique_ptr<Map<double>> doubleMap = std::make_unique<Map<double>>(10);
+	std::unique_ptr<Map<int>> intMap = std::make_unique<Map<int>>(Symetric, 10);
+	std::unique_ptr<Map<double>> doubleMap = std::make_unique<Map<double>>(Asymetric, 10);
 
 	std::cout << (*intMap) << std::endl << (*doubleMap) << std::endl;
 	
@@ -20,6 +20,11 @@ int main()
 	(*doubleMap)[5][0] = 5.25;
 	std::cout << (*doubleMap)[5][0] << std::endl << std::endl;
 	
+	/* */
+
+	intMap = std::make_unique<Map<int>>();
+	doubleMap = std::make_unique<Map<double>>();
+
 	intMap->loadXml("burma14.xml");
 	std::cout << (*intMap) << std::endl;
 
