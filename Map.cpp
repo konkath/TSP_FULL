@@ -2,12 +2,15 @@
 #include "Map.h"
 #include "rapidXml\rapidxml.hpp"
 #include "rapidXml\rapidxml_utils.hpp"
+#include "rapidXml\rapidxml_print.hpp"
 #include "Utils\RandomGenerator.h"
 
-template<typename T>
-Map<T>::Map()
-{
+#include <fstream>
 
+template<typename T>
+Map<T>::Map() : mapType(None)
+{
+	
 }
 
 template<typename T>
@@ -49,6 +52,7 @@ void Map<T>::generateAsymetricMap()
 template<typename T>
 void Map<T>::generateMap(const MapTypes mapType, const unsigned size)
 {
+	this->mapType = mapType;
 	map = std::vector<std::vector<T>>(size, std::vector<T>(size, -1));
 
 	switch (mapType)
@@ -95,7 +99,52 @@ bool Map<T>::loadXml(const std::string fileName)
 	}
 
 	doc.clear();
+	mapType = TSP_LIB;
 	return true;
+}
+
+template<typename T>
+void Map<T>::saveXml()
+{
+	rapidxml::xml_document<> doc;
+	auto declaration = doc.allocate_node(rapidxml::node_declaration);
+	declaration->append_attribute(doc.allocate_attribute("version", "1.0"));
+	declaration->append_attribute(doc.allocate_attribute("encoding", "utf-8"));
+	declaration->append_attribute(doc.allocate_attribute("standalone", "no"));
+	doc.append_node(declaration);
+	
+	auto tsp = doc.allocate_node(rapidxml::node_element, "travellingSalesmanProblemInstance");
+	auto fileName = "TSP_" + std::to_string(map.size());
+	tsp->append_node(doc.allocate_node(rapidxml::node_element, "name", fileName.c_str()));
+	tsp->append_node(doc.allocate_node(rapidxml::node_element, "source", "https://github.com/konkath/TSP_FULL"));
+	tsp->append_node(doc.allocate_node(rapidxml::node_element, "description", "N/A"));
+	tsp->append_node(doc.allocate_node(rapidxml::node_element, "doublePrecision", "N/A"));
+	tsp->append_node(doc.allocate_node(rapidxml::node_element, "ignoredDigits", "N/A"));
+
+	auto graph = doc.allocate_node(rapidxml::node_element, "graph");
+	for (auto& row : map)
+	{
+		auto vertex = doc.allocate_node(rapidxml::node_element, "vertex");
+		auto counter = 0;
+		for (auto& column : row)
+		{
+			auto edge = doc.allocate_node(rapidxml::node_element, "edge", doc.allocate_string(std::to_string(counter).c_str()));
+			edge->append_attribute(doc.allocate_attribute("cost", doc.allocate_string(std::to_string(column).c_str())));
+			vertex->append_node(edge);
+			counter++;
+		}
+		graph->append_node(vertex);
+	}
+
+	tsp->append_node(graph);
+	doc.append_node(tsp);
+
+	std::ofstream file;
+	file.open(fileName + ".xml", std::fstream::in | std::fstream::trunc);
+	file << doc;
+
+	file.close();
+	doc.clear();
 }
 
 template<typename T>
@@ -124,6 +173,7 @@ template void Map<int>::generateSymetricMap(void);
 template void Map<int>::generateAsymetricMap(void);
 template void Map<int>::generateMap(const MapTypes mapType, const unsigned size);
 template bool Map<int>::loadXml(const std::string fileName);
+template void Map<int>::saveXml();
 template std::ostream& operator<<(std::ostream& os, const Map<int>& map);
 template std::vector<int>& Map<int>::operator[](const int index);
 
@@ -132,5 +182,6 @@ template void Map<double>::generateSymetricMap(void);
 template void Map<double>::generateAsymetricMap(void);
 template void Map<double>::generateMap(const MapTypes mapType, const unsigned size);
 template bool Map<double>::loadXml(const std::string fileName);
+template void Map<double>::saveXml();
 template std::ostream& operator<<(std::ostream& os, const Map<double>& map);
 template std::vector<double>& Map<double>::operator[](const int index);

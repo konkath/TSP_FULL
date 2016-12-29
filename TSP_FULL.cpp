@@ -43,6 +43,9 @@ int main()
 	doubleMap->generateMap(Symetric, 10);
 	std::cout << (*doubleMap) << std::endl;
 
+	intMap->saveXml();
+	doubleMap->saveXml();
+
 	getchar();
     return 0;
 }
