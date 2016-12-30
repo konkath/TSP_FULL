@@ -2,17 +2,10 @@
 
 #include "rapidXml\rapidxml.hpp"
 #include "rapidXml\rapidxml_utils.hpp"
+#include "Enums\MapTypes.h"
 
 #include <iostream>  
 #include <vector>
-
-enum MapTypes
-{
-	None = 0,
-	TSP_LIB,
-	Symetric,
-	Asymetric
-};
 
 template<typename T>
 class Map
@@ -32,6 +25,12 @@ private:
 	void generateSymetricMap();
 	void generateAsymetricMap();
 
+	std::string getScientificString(const double number);
+	std::string generateDescription();
+
 	std::vector<std::vector<T>> map;
 	MapTypes mapType;
+
+	const unsigned precision = 15;
+	const unsigned ignoredDigits = 0;
 };

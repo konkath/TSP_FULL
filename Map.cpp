@@ -6,6 +6,8 @@
 #include "Utils\RandomGenerator.h"
 
 #include <fstream>
+#include <iostream>
+#include <sstream>
 
 template<typename T>
 Map<T>::Map() : mapType(None)
@@ -47,6 +49,22 @@ void Map<T>::generateAsymetricMap()
 			}
 		}
 	}
+}
+
+template<typename T>
+std::string Map<T>::getScientificString(const double number)
+{
+	std::stringstream convert; 
+	convert.precision(this->precision);
+	convert << std::scientific << number;
+	return convert.str();
+}
+
+template<typename T>
+std::string Map<T>::generateDescription()
+{
+	std::string dupaName = typeid(T).name();
+	return "Map type " + to_string(mapType) + " with costs of type " + dupaName;
 }
 
 template<typename T>
@@ -115,11 +133,16 @@ void Map<T>::saveXml()
 	
 	auto tsp = doc.allocate_node(rapidxml::node_element, "travellingSalesmanProblemInstance");
 	auto fileName = "TSP_" + std::to_string(map.size());
-	tsp->append_node(doc.allocate_node(rapidxml::node_element, "name", fileName.c_str()));
-	tsp->append_node(doc.allocate_node(rapidxml::node_element, "source", "https://github.com/konkath/TSP_FULL"));
-	tsp->append_node(doc.allocate_node(rapidxml::node_element, "description", "N/A"));
-	tsp->append_node(doc.allocate_node(rapidxml::node_element, "doublePrecision", "N/A"));
-	tsp->append_node(doc.allocate_node(rapidxml::node_element, "ignoredDigits", "N/A"));
+	tsp->append_node(doc.allocate_node(rapidxml::node_element, 
+		"name", fileName.c_str()));
+	tsp->append_node(doc.allocate_node(rapidxml::node_element, 
+		"source", "https://github.com/konkath/TSP_FULL"));
+	tsp->append_node(doc.allocate_node(rapidxml::node_element, 
+		"description", doc.allocate_string(generateDescription().c_str())));
+	tsp->append_node(doc.allocate_node(rapidxml::node_element, 
+		"doublePrecision", doc.allocate_string(std::to_string(precision).c_str())));
+	tsp->append_node(doc.allocate_node(rapidxml::node_element, 
+		"ignoredDigits", doc.allocate_string(std::to_string(ignoredDigits).c_str())));
 
 	auto graph = doc.allocate_node(rapidxml::node_element, "graph");
 	for (auto& row : map)
@@ -128,8 +151,10 @@ void Map<T>::saveXml()
 		auto counter = 0;
 		for (auto& column : row)
 		{
-			auto edge = doc.allocate_node(rapidxml::node_element, "edge", doc.allocate_string(std::to_string(counter).c_str()));
-			edge->append_attribute(doc.allocate_attribute("cost", doc.allocate_string(std::to_string(column).c_str())));
+			auto edge = doc.allocate_node(rapidxml::node_element, 
+				"edge", doc.allocate_string(std::to_string(counter).c_str()));
+			edge->append_attribute(doc.allocate_attribute(
+				"cost", doc.allocate_string(getScientificString(column).c_str())));
 			vertex->append_node(edge);
 			counter++;
 		}
@@ -171,6 +196,8 @@ std::vector<T>& Map<T>::operator[](const int index)
 template class Map<int>;
 template void Map<int>::generateSymetricMap(void);
 template void Map<int>::generateAsymetricMap(void);
+template std::string Map<int>::getScientificString(const double number);
+template std::string Map<int>::generateDescription(void);
 template void Map<int>::generateMap(const MapTypes mapType, const unsigned size);
 template bool Map<int>::loadXml(const std::string fileName);
 template void Map<int>::saveXml();
@@ -180,6 +207,8 @@ template std::vector<int>& Map<int>::operator[](const int index);
 template class Map<double>;
 template void Map<double>::generateSymetricMap(void);
 template void Map<double>::generateAsymetricMap(void);
+template std::string Map<double>::getScientificString(const double number);
+template std::string Map<double>::generateDescription(void);
 template void Map<double>::generateMap(const MapTypes mapType, const unsigned size);
 template bool Map<double>::loadXml(const std::string fileName);
 template void Map<double>::saveXml();
