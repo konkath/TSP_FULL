@@ -20,9 +20,11 @@ void Random<T>::generateSolution()
 template<typename T>
 std::unique_ptr<Solution<T>> Random<T>::getSolution()
 {
+	timer->startTimer();
 	generateSolution();
-	
-	Solution<T> solution(path, getPathCost(path));
+	timer->endTimer();
+
+	Solution<T> solution(path, getPathCost(path), timer->getTime());
 	evaluateSolution(solution);
 	return std::make_unique<Solution<T>>(solution);
 }

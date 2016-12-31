@@ -3,7 +3,8 @@
 #include "Solution.h"
 
 template<typename T>
-Solution<T>::Solution(std::vector<unsigned> path, T cost) : path(path), cost(cost)
+Solution<T>::Solution(const std::vector<unsigned> path, const T cost, const double time) 
+	: path(path), cost(cost), time(time)
 {
 	
 }
@@ -24,6 +25,7 @@ std::ostream & operator<<(std::ostream & os, const Solution<T>& solution)
 	}
 	os << *(solution.path.end() - 1) << std::endl;
 	os << "Cost: " << solution.cost << std::endl;
+	os << "Time: " << solution.time << std::endl;
 
 	return os;
 }

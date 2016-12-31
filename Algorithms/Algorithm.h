@@ -1,6 +1,7 @@
 #pragma once
 
 #include "../Map.h"
+#include "../Utils/Timer.h"
 #include "Solution.h"
 
 #include <memory>
@@ -19,8 +20,8 @@ protected:
 	void evaluateSolution(Solution<T>& solution);
 
 	const std::shared_ptr<Map<T>> map;
+	std::unique_ptr<Timer> timer;
 
 private:
 	std::unique_ptr<Solution<T>> bestSolution;
-
 };

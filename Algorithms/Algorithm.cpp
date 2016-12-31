@@ -3,7 +3,8 @@
 
 
 template<typename T>
-Algorithm<T>::Algorithm(const std::shared_ptr<Map<T>> map) : map(map), bestSolution(nullptr)
+Algorithm<T>::Algorithm(const std::shared_ptr<Map<T>> map) 
+	: map(map), bestSolution(nullptr), timer(std::make_unique<Timer>())
 {
 
 }

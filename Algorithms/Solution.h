@@ -7,7 +7,7 @@ template <typename T>
 class Solution
 {
 public:
-	Solution(const std::vector<unsigned> path, const T cost);
+	Solution(const std::vector<unsigned> path, const T cost, const double time);
 
 	T getCost();
 
@@ -16,4 +16,5 @@ public:
 private:
 	const std::vector<unsigned> path;
 	const T cost;
+	const double time;
 };
