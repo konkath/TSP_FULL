@@ -173,6 +173,12 @@ void Map<T>::saveXml()
 }
 
 template<typename T>
+unsigned Map<T>::getMapSize()
+{
+	return map.size();
+}
+
+template<typename T>
 std::ostream& operator<<(std::ostream& os, const Map<T>& map)
 {
 	for (const auto &v1 : map.map)
@@ -201,6 +207,7 @@ template std::string Map<int>::generateDescription(void);
 template void Map<int>::generateMap(const MapTypes mapType, const unsigned size);
 template bool Map<int>::loadXml(const std::string fileName);
 template void Map<int>::saveXml();
+template unsigned Map<int>::getMapSize();
 template std::ostream& operator<<(std::ostream& os, const Map<int>& map);
 template std::vector<int>& Map<int>::operator[](const int index);
 
@@ -212,5 +219,6 @@ template std::string Map<double>::generateDescription(void);
 template void Map<double>::generateMap(const MapTypes mapType, const unsigned size);
 template bool Map<double>::loadXml(const std::string fileName);
 template void Map<double>::saveXml();
+template unsigned Map<double>::getMapSize();
 template std::ostream& operator<<(std::ostream& os, const Map<double>& map);
 template std::vector<double>& Map<double>::operator[](const int index);

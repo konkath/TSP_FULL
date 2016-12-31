@@ -18,6 +18,7 @@ public:
 	bool loadXml(const std::string fileName);
 	void saveXml();
 
+	unsigned getMapSize();
 	template<typename T> friend std::ostream& operator<<(std::ostream& os, const Map<T>& map);
 	std::vector<T>& operator[](const int index);
 

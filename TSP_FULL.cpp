@@ -3,48 +3,24 @@
 
 #include "stdafx.h"
 #include "Map.h"
+#include "Algorithms\Random.h"
 
 #include <memory>
 #include <iostream>
 
 int main()
 {
-	std::unique_ptr<Map<int>> intMap = std::make_unique<Map<int>>(Symetric, 10);
-	std::unique_ptr<Map<double>> doubleMap = std::make_unique<Map<double>>(Asymetric, 10);
-
-	std::cout << (*intMap) << std::endl << (*doubleMap) << std::endl;
+	std::shared_ptr<Map<int>> intMap = std::make_shared<Map<int>>(Symetric, 10);
+	std::shared_ptr<Map<double>> doubleMap = std::make_shared<Map<double>>(Asymetric, 10);
 	
-	(*intMap)[2][0] = 5;
-	std::cout << (*intMap)[2][0] << std::endl;
+	std::unique_ptr<Algorithm<int>> intAlgorithm = std::make_unique<Random<int>>(intMap);
+	std::unique_ptr<Algorithm<double>> doubleAlgorithm = std::make_unique<Random <double>>(doubleMap);
 
-	(*doubleMap)[5][0] = 5.25;
-	std::cout << (*doubleMap)[5][0] << std::endl << std::endl;
-	
-	/* */
+	auto intSolution = intAlgorithm->getSolution();
+	std::cout << intAlgorithm->getSolutionCost(intSolution) << std::endl;
 
-	intMap = std::make_unique<Map<int>>();
-	doubleMap = std::make_unique<Map<double>>();
-
-	intMap->loadXml("burma14.xml");
-	std::cout << (*intMap) << std::endl;
-
-	doubleMap->loadXml("burma14.xml");
-	std::cout << (*doubleMap) << std::endl;
-
-	intMap->generateMap(Asymetric, 10);
-	std::cout << (*intMap) << std::endl;
-
-	intMap->generateMap(Symetric, 10);
-	std::cout << (*intMap) << std::endl;
-	
-	doubleMap->generateMap(Asymetric, 10);
-	std::cout << (*doubleMap) << std::endl;
-
-	doubleMap->generateMap(Symetric, 10);
-	std::cout << (*doubleMap) << std::endl;
-
-	intMap->saveXml();
-	doubleMap->saveXml();
+	auto doubleSolution = doubleAlgorithm->getSolution();
+	std::cout << doubleAlgorithm->getSolutionCost(doubleSolution) << std::endl;
 
 	getchar();
     return 0;

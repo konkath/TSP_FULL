@@ -142,6 +142,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Algorithms\Algorithm.h" />
+    <ClInclude Include="Algorithms\Random.h" />
     <ClInclude Include="Enums\MapTypes.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="stdafx.h" />
@@ -149,6 +151,8 @@
     <ClInclude Include="Utils\RandomGenerator.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Algorithms\Algorithm.cpp" />
+    <ClCompile Include="Algorithms\Random.cpp" />
     <ClCompile Include="Enums\MapTypes.cpp" />
     <ClCompile Include="Map.cpp" />
     <ClCompile Include="stdafx.cpp">
