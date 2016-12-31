@@ -144,6 +144,7 @@
   <ItemGroup>
     <ClInclude Include="Algorithms\Algorithm.h" />
     <ClInclude Include="Algorithms\Random.h" />
+    <ClInclude Include="Algorithms\Solution.h" />
     <ClInclude Include="Enums\MapTypes.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="stdafx.h" />
@@ -153,6 +154,7 @@
   <ItemGroup>
     <ClCompile Include="Algorithms\Algorithm.cpp" />
     <ClCompile Include="Algorithms\Random.cpp" />
+    <ClCompile Include="Algorithms\Solution.cpp" />
     <ClCompile Include="Enums\MapTypes.cpp" />
     <ClCompile Include="Map.cpp" />
     <ClCompile Include="stdafx.cpp">

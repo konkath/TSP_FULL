@@ -7,28 +7,30 @@
 template<typename T>
 Random<T>::Random(const std::shared_ptr<Map<T>> map) : Algorithm(map)
 {
-	solution = std::vector<unsigned>(map->getMapSize());
+	path = std::vector<unsigned>(map->getMapSize());
 }
 
 template<typename T>
 void Random<T>::generateSolution()
 {
-	std::iota(solution.begin(), solution.end(), 0);
-	std::random_shuffle(solution.begin(), solution.end());
+	std::iota(path.begin(), path.end(), 0);
+	std::random_shuffle(path.begin(), path.end());
 }
 
 template<typename T>
-std::vector<unsigned> Random<T>::getSolution()
+std::unique_ptr<Solution<T>> Random<T>::getSolution()
 {
 	generateSolution();
+	
+	Solution<T> solution(path, getPathCost(path));
 	evaluateSolution(solution);
-	return solution;
+	return std::make_unique<Solution<T>>(solution);
 }
 
 template class Random<int>;
 template void Random<int>::generateSolution();
-template std::vector<unsigned> Random<int>::getSolution();
+template std::unique_ptr<Solution<int>> Random<int>::getSolution();
 
 template class Random<double>;
 template void Random<double>::generateSolution();
-template std::vector<unsigned> Random<double>::getSolution();
+template std::unique_ptr<Solution<double>> Random<double>::getSolution();

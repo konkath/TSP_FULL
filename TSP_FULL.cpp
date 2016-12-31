@@ -16,11 +16,21 @@ int main()
 	std::unique_ptr<Algorithm<int>> intAlgorithm = std::make_unique<Random<int>>(intMap);
 	std::unique_ptr<Algorithm<double>> doubleAlgorithm = std::make_unique<Random <double>>(doubleMap);
 
-	auto intSolution = intAlgorithm->getSolution();
-	std::cout << intAlgorithm->getSolutionCost(intSolution) << std::endl;
+	for (auto i = 0; i < 10; ++i)
+	{
+		auto intSolution = intAlgorithm->getSolution();
+		std::cout << (*intSolution);
 
-	auto doubleSolution = doubleAlgorithm->getSolution();
-	std::cout << doubleAlgorithm->getSolutionCost(doubleSolution) << std::endl;
+		auto doubleSolution = doubleAlgorithm->getSolution();
+		std::cout << (*doubleSolution);
+	}
+
+	std::cout << std::endl << std::endl;
+	auto bestIntSolution = intAlgorithm->getBestSolution();
+	std::cout << (*bestIntSolution);
+
+	auto bestDoubleSolution = doubleAlgorithm->getBestSolution();
+	std::cout << (*bestDoubleSolution);
 
 	getchar();
     return 0;
