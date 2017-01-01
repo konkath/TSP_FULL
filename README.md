@@ -12,10 +12,10 @@ Generated solution holds information of path, cost and time it took to get it.
 
 Currently supported algorithms:
 - random solution;
+- bruteforce
 
 
 Planned algorithms:
-- bruteforce
 - dynamic
 - greedy
 - genetic

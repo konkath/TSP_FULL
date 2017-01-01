@@ -4,6 +4,7 @@
 #include "stdafx.h"
 #include "Map.h"
 #include "Algorithms\Random.h"
+#include "Algorithms\Bruteforce.h"
 
 #include <memory>
 #include <iostream>
@@ -13,24 +14,25 @@ int main()
 	std::shared_ptr<Map<int>> intMap = std::make_shared<Map<int>>(Symetric, 10);
 	std::shared_ptr<Map<double>> doubleMap = std::make_shared<Map<double>>(Asymetric, 10);
 	
-	std::unique_ptr<Algorithm<int>> intAlgorithm = std::make_unique<Random<int>>(intMap);
-	std::unique_ptr<Algorithm<double>> doubleAlgorithm = std::make_unique<Random <double>>(doubleMap);
+	std::unique_ptr<Algorithm<int>> intRandomAlgorithm = std::make_unique<Random<int>>(intMap);
+	std::unique_ptr<Algorithm<double>> doubleRandomAlgorithm = std::make_unique<Random <double>>(doubleMap);
 
-	for (auto i = 0; i < 10; ++i)
+	for (auto i = 0; i < 100; ++i)
 	{
-		auto intSolution = intAlgorithm->getSolution();
-		std::cout << (*intSolution);
-
-		auto doubleSolution = doubleAlgorithm->getSolution();
-		std::cout << (*doubleSolution);
+		intRandomAlgorithm->getSolution();
+		doubleRandomAlgorithm->getSolution();
 	}
 
-	std::cout << std::endl << std::endl;
-	auto bestIntSolution = intAlgorithm->getBestSolution();
-	std::cout << (*bestIntSolution);
+	std::cout << (*intRandomAlgorithm->getBestSolution()) << std::endl;
+	std::cout << (*doubleRandomAlgorithm->getBestSolution()) << std::endl;
 
-	auto bestDoubleSolution = doubleAlgorithm->getBestSolution();
-	std::cout << (*bestDoubleSolution);
+	/* */
+
+	std::unique_ptr<Algorithm<int>> intBruteforceAlgorithm = std::make_unique<Bruteforce<int>>(intMap);
+	std::unique_ptr<Algorithm<double>> doubleBruteforceAlgorithm = std::make_unique<Bruteforce <double>>(doubleMap);
+
+	std::cout << (*intBruteforceAlgorithm->getSolution()) << std::endl;
+	std::cout << (*doubleBruteforceAlgorithm->getSolution()) << std::endl;
 
 	getchar();
     return 0;
