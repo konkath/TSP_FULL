@@ -11,19 +11,7 @@ Bruteforce<T>::Bruteforce(const std::shared_ptr<Map<T>> map) : Algorithm(map), b
 }
 
 template<typename T>
-std::unique_ptr<Solution<T>> Bruteforce<T>::getSolution()
-{
-	timer->startTimer();
-	generateSolution();
-	timer->endTimer();
-
-	Solution<T> solution(bestPath, bestPathCost, timer->getTime());
-	evaluateSolution(solution);
-	return std::make_unique<Solution<T>>(solution);
-}
-
-template<typename T>
-void Bruteforce<T>::generateSolution()
+std::vector<unsigned> Bruteforce<T>::generateSolution()
 {
 	std::vector<unsigned> path(map->getMapSize());
 	std::iota(path.begin(), path.end(), 0);
@@ -37,12 +25,12 @@ void Bruteforce<T>::generateSolution()
 			bestPathCost = cost;
 		}
 	}
+
+	return bestPath;
 }
 
 template class Bruteforce<int>;
-template void Bruteforce<int>::generateSolution();
-template std::unique_ptr<Solution<int>> Bruteforce<int>::getSolution();
+template std::vector<unsigned> Bruteforce<int>::generateSolution();
 
 template class Bruteforce<double>;
-template void Bruteforce<double>::generateSolution();
-template std::unique_ptr<Solution<double>> Bruteforce<double>::getSolution();
+template std::vector<unsigned> Bruteforce<double>::generateSolution();

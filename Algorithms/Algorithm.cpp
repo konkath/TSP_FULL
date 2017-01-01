@@ -10,6 +10,18 @@ Algorithm<T>::Algorithm(const std::shared_ptr<Map<T>> map)
 }
 
 template<typename T>
+std::unique_ptr<Solution<T>> Algorithm<T>::getSolution()
+{
+	timer->startTimer();
+	auto path = generateSolution();
+	timer->endTimer();
+
+	Solution<T> solution(path, getPathCost(path), timer->getTime());
+	evaluateSolution(solution);
+	return std::make_unique<Solution<T>>(solution);
+}
+
+template<typename T>
 std::unique_ptr<Solution<T>> Algorithm<T>::getBestSolution()
 {
 	return std::make_unique<Solution<T>>(*bestSolution);
@@ -39,11 +51,13 @@ void Algorithm<T>::evaluateSolution(Solution<T>& solution)
 }
 
 template class Algorithm<int>;
+template std::unique_ptr<Solution<int>> Algorithm<int>::getSolution();
 template std::unique_ptr<Solution<int>> Algorithm<int>::getBestSolution();
 template int Algorithm<int>::getPathCost(const std::vector<unsigned>& solution);
 template void Algorithm<int>::evaluateSolution(Solution<int>& solution);
 
 template class Algorithm<double>;
+template std::unique_ptr<Solution<double>> Algorithm<double>::getSolution();
 template std::unique_ptr<Solution<double>> Algorithm<double>::getBestSolution();
 template double Algorithm<double>::getPathCost(const std::vector<unsigned>& solution);
 template void Algorithm<double>::evaluateSolution(Solution<double>& solution);
