@@ -10,6 +10,7 @@ public:
 	Solution(const std::vector<unsigned> path, const T cost, const double time);
 
 	T getCost();
+	double getTime();
 
 	template<typename T> friend std::ostream& operator<<(std::ostream& os, const Solution<T>& solution);
 

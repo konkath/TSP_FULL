@@ -28,12 +28,24 @@ int main()
 
 	/* */
 
-	std::unique_ptr<Algorithm<int>> intBruteforceAlgorithm = std::make_unique<Bruteforce<int>>(intMap);
-	std::unique_ptr<Algorithm<double>> doubleBruteforceAlgorithm = std::make_unique<Bruteforce <double>>(doubleMap);
+	for (auto i = 1; i < 5; ++i)
+	{
+		std::unique_ptr<Algorithm<int>> intBruteforceAlgorithm = 
+			std::make_unique<Bruteforce<int>>(intMap, i);
+		std::unique_ptr<Algorithm<double>> doubleBruteforceAlgorithm = 
+			std::make_unique<Bruteforce <double>>(doubleMap, i);
 
-	std::cout << (*intBruteforceAlgorithm->getSolution()) << std::endl;
-	std::cout << (*doubleBruteforceAlgorithm->getSolution()) << std::endl;
-
+		double intTime = 0, doubleTime = 0;
+		const int testNumber = 1000;
+		for (auto j = 0; j < testNumber; ++j)
+		{
+			intTime += (*intBruteforceAlgorithm->getSolution()).getTime();
+			doubleTime += (*doubleBruteforceAlgorithm->getSolution()).getTime();
+		}
+		std::cout << "int time for " << i << " threads " << intTime / testNumber << std::endl;
+		std::cout << "double time for " << i << " threads " << doubleTime / testNumber << std::endl;
+	}
+	
 	getchar();
     return 0;
 }

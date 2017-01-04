@@ -16,6 +16,12 @@ T Solution<T>::getCost()
 }
 
 template<typename T>
+double Solution<T>::getTime()
+{
+	return time;
+}
+
+template<typename T>
 std::ostream & operator<<(std::ostream & os, const Solution<T>& solution)
 {
 	os << "Path: ";
@@ -32,8 +38,10 @@ std::ostream & operator<<(std::ostream & os, const Solution<T>& solution)
 
 template class Solution<int>;
 template int Solution<int>::getCost();
+template double Solution<int>::getTime();
 template std::ostream& operator<<(std::ostream& os, const Solution<int>& solution);
 
 template class Solution<double>;
 template double Solution<double>::getCost();
+template double Solution<double>::getTime();
 template std::ostream& operator<<(std::ostream& os, const Solution<double>& solution);

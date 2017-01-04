@@ -10,9 +10,12 @@ Random number generation is implemented with using thread safe Mersenne Twister 
 
 Generated solution holds information of path, cost and time it took to get it.
 
+Timer class supports multithreading algorithms as it bases on system time instead of core frequency. Precision is in ms. 
+Link with "Winmm.lib"
+
 Currently supported algorithms:
-- random solution;
-- bruteforce
+- random solution (single thread)
+- bruteforce (multi thread)
 
 
 Planned algorithms:

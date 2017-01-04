@@ -11,9 +11,6 @@ public:
 	double getTime();
 	
 private:
-	void checkFrequency();
-
-	double frequency;
-	double startTick;
+	double startTime;
 	double time;
 };
