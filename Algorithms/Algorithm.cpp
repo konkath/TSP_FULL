@@ -32,12 +32,12 @@ T Algorithm<T>::getPathCost(const std::vector<unsigned>& path)
 {
 	auto cost = static_cast<T>(0);
 
-	for (auto& it = path.begin(); it != path.end() - 1; ++it)
+	auto endItr = path.end() - 1;
+	for (auto& it = path.begin(); it != endItr;)
 	{
-		cost += (*map)[*it][*(it + 1)];
+		cost += (*map)[*(++it)][*it]; // Optimalization hack equal with (*map)[*it][*(it++)] but much faster
 	}
-	cost += (*map)[*(path.end() - 1)][*path.begin()];
-
+	cost += (*map)[*endItr][*path.begin()];
 	return cost;
 }
 

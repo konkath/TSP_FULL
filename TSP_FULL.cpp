@@ -16,8 +16,9 @@ int main()
 	
 	std::unique_ptr<Algorithm<int>> intRandomAlgorithm = std::make_unique<Random<int>>(intMap);
 	std::unique_ptr<Algorithm<double>> doubleRandomAlgorithm = std::make_unique<Random <double>>(doubleMap);
-
-	for (auto i = 0; i < 100; ++i)
+	
+	const int testNumber = 1000;
+	for (auto i = 0; i < testNumber; ++i)
 	{
 		intRandomAlgorithm->getSolution();
 		doubleRandomAlgorithm->getSolution();
@@ -34,9 +35,8 @@ int main()
 			std::make_unique<Bruteforce<int>>(intMap, i);
 		std::unique_ptr<Algorithm<double>> doubleBruteforceAlgorithm = 
 			std::make_unique<Bruteforce <double>>(doubleMap, i);
-
+	
 		double intTime = 0, doubleTime = 0;
-		const int testNumber = 1000;
 		for (auto j = 0; j < testNumber; ++j)
 		{
 			intTime += (*intBruteforceAlgorithm->getSolution()).getTime();
