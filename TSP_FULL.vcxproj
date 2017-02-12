@@ -146,6 +146,7 @@
   <ItemGroup>
     <ClInclude Include="Algorithms\Algorithm.h" />
     <ClInclude Include="Algorithms\Bruteforce.h" />
+    <ClInclude Include="Algorithms\Greedy.h" />
     <ClInclude Include="Algorithms\Random.h" />
     <ClInclude Include="Algorithms\Solution.h" />
     <ClInclude Include="Enums\MapTypes.h" />
@@ -158,6 +159,7 @@
   <ItemGroup>
     <ClCompile Include="Algorithms\Algorithm.cpp" />
     <ClCompile Include="Algorithms\Bruteforce.cpp" />
+    <ClCompile Include="Algorithms\Greedy.cpp" />
     <ClCompile Include="Algorithms\Random.cpp" />
     <ClCompile Include="Algorithms\Solution.cpp" />
     <ClCompile Include="Enums\MapTypes.cpp" />

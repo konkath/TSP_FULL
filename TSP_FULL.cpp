@@ -5,12 +5,33 @@
 #include "Map.h"
 #include "Algorithms\Random.h"
 #include "Algorithms\Bruteforce.h"
+#include "Algorithms\Greedy.h"
 
 #include <memory>
 #include <iostream>
 
 int main()
 {
+	unsigned mapSizes[] = { 10, 50, 100, 300, 500, 1000 };
+	for (const auto& size : mapSizes)
+	{
+		std::shared_ptr<Map<int>> intMap = std::make_shared<Map<int>>(Symetric, size);
+		std::shared_ptr<Map<double>> doubleMap = std::make_shared<Map<double>>(Asymetric, size);
+
+		std::unique_ptr<Algorithm<int>> intGreedyAlgorithm = std::make_unique<Greedy<int>>(intMap);
+		std::unique_ptr<Algorithm<double>> doubleGreedyAlgorithm = std::make_unique<Greedy <double>>(doubleMap);
+
+		const int testNumber = 1000;
+		for (auto i = 0; i < testNumber; ++i)
+		{
+			intGreedyAlgorithm->getSolution();
+			doubleGreedyAlgorithm->getSolution();
+		}
+
+		std::cout << (*intGreedyAlgorithm->getBestSolution()) << std::endl;
+		std::cout << (*doubleGreedyAlgorithm->getBestSolution()) << std::endl;
+	}
+
 	std::shared_ptr<Map<int>> intMap = std::make_shared<Map<int>>(Symetric, 10);
 	std::shared_ptr<Map<double>> doubleMap = std::make_shared<Map<double>>(Asymetric, 10);
 	
@@ -27,7 +48,7 @@ int main()
 	std::cout << (*intRandomAlgorithm->getBestSolution()) << std::endl;
 	std::cout << (*doubleRandomAlgorithm->getBestSolution()) << std::endl;
 
-	/* */
+	//////////////////////////////////////////////////////////////////////////////////////
 
 	for (auto i = 1; i < 5; ++i)
 	{

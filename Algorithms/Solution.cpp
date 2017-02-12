@@ -24,12 +24,16 @@ double Solution<T>::getTime()
 template<typename T>
 std::ostream & operator<<(std::ostream & os, const Solution<T>& solution)
 {
-	os << "Path: ";
-	for (auto& it = solution.path.begin(); it != solution.path.end() - 1; ++it)
+	if (solution.path.size() < 12)
 	{
-		os << *it << " -> ";
+		os << "Path: ";
+		for (auto& it = solution.path.begin(); it != solution.path.end() - 1; ++it)
+		{
+			os << *it << " -> ";
+		}
+		os << *(solution.path.end() - 1) << std::endl;
 	}
-	os << *(solution.path.end() - 1) << std::endl;
+
 	os << "Cost: " << solution.cost << std::endl;
 	os << "Time: " << solution.time << std::endl;
 
