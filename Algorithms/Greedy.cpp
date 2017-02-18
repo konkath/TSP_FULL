@@ -3,6 +3,9 @@
 
 #include "../Utils/RandomGenerator.h"
 
+#include <numeric>
+#include <algorithm>
+
 template<typename T>
 Greedy<T>::Greedy(const std::shared_ptr<Map<T>> map)
 	: Algorithm(map)
@@ -15,23 +18,26 @@ std::vector<unsigned> Greedy<T>::generateSolution()
 {
 	const auto mapSize = map->getMapSize();
 	const auto startingCity = RandomGenerator<int>::getGenerator().getRandom(0, mapSize - 1);
-	vector<bool> visitedCities(mapSize, false);
-	visitedCities[startingCity] = true;
 	vector<unsigned> path(1, startingCity);
+
+	std::vector<unsigned> availableCities = std::vector<unsigned>(mapSize);
+	std::iota(availableCities.begin(), availableCities.end(), 0);
+	availableCities.erase(availableCities.begin() + startingCity);
 
 	for (auto i = 0u; i < mapSize - 1; ++i)
 	{
 		std::pair<T, int> closestNeighbour(INT_MAX, 0);
 
-		for (auto j = 0u; j < mapSize; ++j)
+		for (auto j = 0u; j < availableCities.size(); ++j)
 		{
-			if (i != j && !visitedCities[j] && closestNeighbour.first > (*map)[i][j])
+			const auto destination = availableCities[j];
+			if (closestNeighbour.first > (*map)[i][destination] && i != destination)
 			{
-				closestNeighbour = std::make_pair((*map)[i][j], j);
+				closestNeighbour = std::make_pair((*map)[i][destination], j);
 			}
 		}
 
-		visitedCities[closestNeighbour.second] = true;
+		availableCities.erase(availableCities.begin() + closestNeighbour.second);
 		path.push_back(closestNeighbour.second);
 	}
 

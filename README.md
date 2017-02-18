@@ -16,11 +16,11 @@ Link with "Winmm.lib"
 Currently supported algorithms:
 - random solution (single thread)
 - bruteforce (multi thread)
+- greedy (single thread)
 
 
 Planned algorithms:
 - dynamic
-- greedy
 - genetic
 - 2-approximation
 - 3/2-approximation

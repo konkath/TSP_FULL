@@ -12,7 +12,7 @@
 
 int main()
 {
-	unsigned mapSizes[] = { 10, 50, 100, 300, 500, 1000 };
+	unsigned mapSizes[] = { 100, 500, 1000, 3000, 5000, 10000 };
 	for (const auto& size : mapSizes)
 	{
 		std::shared_ptr<Map<int>> intMap = std::make_shared<Map<int>>(Symetric, size);
@@ -32,6 +32,11 @@ int main()
 		std::cout << (*doubleGreedyAlgorithm->getBestSolution()) << std::endl;
 	}
 
+	/*
+	//////////////////////////////////////////////////////////////////////////////////////
+	std::cout << "Greedy done!" << std::endl;
+	getchar();
+
 	std::shared_ptr<Map<int>> intMap = std::make_shared<Map<int>>(Symetric, 10);
 	std::shared_ptr<Map<double>> doubleMap = std::make_shared<Map<double>>(Asymetric, 10);
 	
@@ -49,6 +54,8 @@ int main()
 	std::cout << (*doubleRandomAlgorithm->getBestSolution()) << std::endl;
 
 	//////////////////////////////////////////////////////////////////////////////////////
+	std::cout << "Random done!" << std::endl;
+	getchar();
 
 	for (auto i = 1; i < 5; ++i)
 	{
@@ -66,7 +73,10 @@ int main()
 		std::cout << "int time for " << i << " threads " << intTime / testNumber << std::endl;
 		std::cout << "double time for " << i << " threads " << doubleTime / testNumber << std::endl;
 	}
-	
+
+	//////////////////////////////////////////////////////////////////////////////////////
+	std::cout << "Bruteforce done!" << std::endl;
 	getchar();
+	*/
     return 0;
 }
